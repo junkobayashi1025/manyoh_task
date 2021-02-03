@@ -1,4 +1,15 @@
-<%= form_with(model: @task, local: true) do |f| %>
+<% if task.errors.any? %>
+  <div id="error_explanation" class="alert-danger">
+    <h2><%= task.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= link_to 'index', tasks_path, class: 'btn btn-primary'%>
+<%= form_with(model: task, local: true) do |f| %>
   <div class="form-group">
     <%= f.label :title%>
     <%= f.text_field :title, class: 'form-control' %>

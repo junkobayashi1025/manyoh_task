@@ -22,5 +22,8 @@
       <th>priority</th>
       <td><%= @task.priority %></td>
     </tr>
+    <td><%= link_to 'edit', edit_task_path, class: 'btn btn-primary'%></td>
+    <td><%= link_to 'delete', @task, method: :delete, class: 'btn btn-danger mr-3', date: {confirm: "タスク「#{@task.title}」を削除します。よろしいでしょうか？"}%></td>
+
  </tbody>
 </table>

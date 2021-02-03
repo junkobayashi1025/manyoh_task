@@ -1,14 +1,5 @@
 <div class="d-flex align-items-center">
   <h1>new</h1>
 </div>
-<% if @task.errors.any? %>
-  <div id="error_explanation" class="alert-danger">
-    <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-    <ul>
-    <% @task.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= render 'form' %>
+
+<%= render partial: 'form', locals: { task: @task } %>
