@@ -10,6 +10,12 @@
   </head>
 
   <body>
+    <div class="container">
+    <% if flash.notice.present? %>
+    <div class="alert alert-success">
+    <%= flash.notice%>
+    <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>
