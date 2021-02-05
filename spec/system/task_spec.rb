@@ -3,7 +3,6 @@ RSpec.describe 'タスク管理機能', type: :system do
   before do
     FactoryBot.create(:task)
     FactoryBot.create(:new_task)
-
   end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
