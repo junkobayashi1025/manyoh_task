@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new(task_params)
-    task.save!
+    task.save
     redirect_to tasks_url, notice: "タスク「#{task.title}」を登録しました"
   end
 
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find(params[:id])
-    task.update!(task_params)
+    task.update(task_params)
     redirect_to tasks_url, notice: "タスク「#{task.title}」を更新しました"
   end
 
