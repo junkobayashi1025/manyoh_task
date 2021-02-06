@@ -9,7 +9,7 @@ FactoryBot.define do
   factory :new_task, class: Task do
     title { 'new_task' }
     content { 'content2' }
-    deadline { Time.current }
+    deadline { Time.current + 30.days}
     status {'New'}
     priority {'low'}
 end

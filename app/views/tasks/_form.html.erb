@@ -11,7 +11,7 @@
 <%= link_to 'index', tasks_path, class: 'btn btn-primary'%>
 <%= form_with(model: task, local: true) do |f| %>
   <div class="form-group">
-    <%= f.label :title%>
+    <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
   </div>
   <div class="form-group">
