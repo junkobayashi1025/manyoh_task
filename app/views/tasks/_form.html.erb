@@ -24,11 +24,11 @@
   </div>
   <div class="form-group">
      <%= f.label :status %>
-     <%= f.select :status, ["New","WIP","Done","Pending"], class: "form-control" %>
+     <%= f.select :status, ["New","WIP","Done","Pending"], include_blank: "選択してください", class: "form-control" %>
   </div>
   <div class="form-group">
      <%= f.label :priority %>
-     <%= f.select :priority,  ["low","normal","high"], class: "form-control" %>
+     <%= f.select :priority,  ["low","normal","high"], include_blank: "選択してください", class: "form-control" %>
   </div>
   <%= f.submit 'save', value:'save', class: 'btn btn-primary' %>
 <% end %>
