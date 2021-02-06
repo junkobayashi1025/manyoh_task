@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   def show
@@ -12,9 +12,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスク「#{task.title}」を登録しました"
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to tasks_url, notice: "タスク「#{@task.title}」を登録しました"
+    else
+      render :new
+    end
   end
 
   def edit
@@ -23,7 +26,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find(params[:id])
-    task.update!(task_params)
+    task.update(task_params)
     redirect_to tasks_url, notice: "タスク「#{task.title}」を更新しました"
   end
 
