@@ -2,11 +2,14 @@
 <%= link_to 'new', new_task_path, class: 'btn btn-primary'%>
 
 <ul>
-  <li>タスク名<%= form_with(url: tasks_path, method: :get, local: true) do |form|%>
-    <%= form.text_field :task, placeholder:"検索.." %>
-    <%= form.submit 'Search', name: nil%>
+    <%= form_with(url: tasks_path, method: :get, local: true) do |f|%>
+    <%= f.label :search, 'タイトル' %>
+    <%= f.text_field :search, placeholder:"タイトル検索"%>
+    <%= f.label :status, '進捗'%>
+    <%= f.select :status, ["New","WIP","Done","Pending"], include_blank: true %>
+    <%= f.submit 'Search' %>
+    <%= link_to 'Clear', tasks_path %>
     <% end %>
-  </li>
 </ul>
 
 
