@@ -1,6 +1,15 @@
 <h1>Tasks#index</h1>
 <%= link_to 'new', new_task_path, class: 'btn btn-primary'%>
 
+<ul>
+  <li>タスク名<%= form_with(url: tasks_path, method: :get, local: true) do |form|%>
+    <%= form.text_field :task, placeholder:"検索.." %>
+    <%= form.submit 'Search', name: nil%>
+    <% end %>
+  </li>
+</ul>
+
+
 <table class="table">
   <thead class="thead-dark">
     <tr>

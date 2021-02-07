@@ -5,6 +5,10 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all.order(created_at: :desc)
     end
+
+    if params[:task].present?
+      @tasks = Task.where('title LIKE ?', "%#{params[:task]}%")
+    end
   end
 
   def show
