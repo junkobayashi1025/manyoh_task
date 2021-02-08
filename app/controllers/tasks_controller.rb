@@ -10,9 +10,9 @@ class TasksController < ApplicationController
        @tasks = Task.title_search(params[:title]).status_search(params[:status])
      elsif params[:title].present?
        @tasks = Task.title_search(params[:title])
-      elsif params[:status].present?
-        @tasks = Task.status_search(params[:status])
-       end
+     elsif params[:status].present?
+       @tasks = Task.status_search(params[:status])
+     end
    end
 
   def show

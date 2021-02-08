@@ -14,5 +14,5 @@ FactoryBot.define do
     deadline { Time.current }
     status {'New'}
     priority {'low'}
-end
+  end
 end

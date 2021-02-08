@@ -4,6 +4,39 @@ RSpec.describe 'タスク管理機能', type: :system do
     FactoryBot.create(:task)
     FactoryBot.create(:new_task)
   end
+  describe 'タスク管理機能', type: :system do
+    describe '検索機能' do
+      context 'タイトルであいまい検索をした場合' do
+        it "検索キーワードを含むタスクで絞りこまれる" do
+          visit tasks_path
+          fill_in 'title', with: 'ta'
+          click_on 'Search'
+          expect(page).to have_content 'task'
+        end
+      end
+
+      context 'タイトルのあいまい検索とステータス検索をした場合' do
+        it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+          visit tasks_path
+          fill_in 'title', with: 'ta'
+          select 'New', from: 'status'
+          click_on 'Search'
+          sleep(1)
+          expect(page).to have_content 'task'
+          expect(page).to have_content 'New'
+        end
+      end
+      context 'ステータス検索をした場合' do
+        it "ステータスに完全一致するタスクが絞り込まれる" do
+          visit tasks_path
+          select 'New', from: 'status'
+          click_on 'Search'
+          sleep(1)
+          expect(page).to have_content 'New'
+        end
+      end　
+    end
+  end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
@@ -11,8 +44,11 @@ RSpec.describe 'タスク管理機能', type: :system do
       fill_in 'task[title]', with:'テスト'
       fill_in 'task[content]', with:'content'
       fill_in 'task[deadline]', with: Time.current + 7.days
+      select 'New', from: 'task[status]'
       click_on 'save'
+      sleep(1)
       expect(page).to have_content 'テスト'
+      expect(page).to have_content 'New'
       end
     end
   end
@@ -35,6 +71,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it 'タスクが終了期限順に並んでいる' do
         visit tasks_path
         click_on '終了期限でソートする'
+        sleep(1)
         task_list = all('tbody tr')
         expect(task_list[0]).to have_content 'task'
         expect(task_list[1]).to have_content 'new_task'
@@ -44,7 +81,6 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
-         # task = FactoryBot.create(:task)
          visit task_path(1)
          expect(page).to have_content 'task'
          visit task_path(2)
