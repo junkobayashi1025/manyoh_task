@@ -69,11 +69,21 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限でソートした場合' do
       it 'タスクが終了期限順に並んでいる' do
         visit tasks_path
-        click_on '終了期限でソートする'
+        click_on '終了期限'
         sleep(1)
         task_list = all('tbody tr')
         expect(task_list[0]).to have_content 'task'
         expect(task_list[1]).to have_content 'new_task'
+      end
+    end
+    context '優先順位が高い順でソートした場合' do
+      it 'タスクが優先順が高い順に並んでいる' do
+        visit tasks_path
+        click_on '優先度'
+        sleep(1)
+        task_list = all('tbody tr')
+        expect(task_list[0]).to have_content 'high'
+        expect(task_list[1]).to have_content 'low'
       end
     end
   end

@@ -5,7 +5,7 @@ FactoryBot.define do
     content { 'content' }
     deadline { Time.current + 30.days }
     status {'New'}
-    priority {'low'}
+    priority {'high'}
   end
   factory :new_task, class: Task do
     id {2}
