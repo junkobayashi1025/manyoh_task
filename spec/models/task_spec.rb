@@ -21,25 +21,36 @@ RSpec.describe 'タスクモデル機能', type: :model do
       end
     end
     describe '検索機能' do
-       # 必要に応じて、テストデータの内容を変更して構わない
-       FactoryBot.create(:task)
-       FactoryBot.create(:new_task)
+      let!(:task) { FactoryBot.create(:task, title: 'task', status: 'New') }
+      let!(:new_task) { FactoryBot.create(:new_task, title: 'sample', status: 'Done') }
        context 'scopeメソッドでタイトルのあいまい検索をした場合' do
          it "検索キーワードを含むタスクが絞り込まれる" do
-           # title_seachはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
            expect(Task.title_search('task')).to include(task)
            expect(Task.title_search('task')).not_to include(new_task)
            expect(Task.title_search('task').count).to eq 1
+           expect(Task.title_search('sample')).to include(new_task)
+           expect(Task.title_search('sample')).not_to include(task)
+           expect(Task.title_search('sample').count).to eq 1
          end
        end
        context 'scopeメソッドでステータス検索をした場合' do
          it "ステータスに完全一致するタスクが絞り込まれる" do
-           # ここに内容を記載する
+           expect(Task.status_search('New')).to include(task)
+           expect(Task.status_search('New')).not_to include(new_task)
+           expect(Task.status_search('New').count).to eq 1
+           expect(Task.status_search('Done')).to include(new_task)
+           expect(Task.status_search('Done')).not_to include(task)
+           expect(Task.status_search('Done').count).to eq 1
          end
        end
        context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
          it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-           # ここに内容を記載する
+           expect(Task.title_search('task').status_search('New')).to include(task)
+           expect(Task.title_search('task').status_search('New')).not_to include(new_task)
+           expect(Task.title_search('task').status_search('New').count).to eq 1
+           expect(Task.title_search('sample').status_search('Done')).to include(new_task)
+           expect(Task.title_search('sample').status_search('Done')).not_to include(task)
+           expect(Task.title_search('sample').status_search('Done').count).to eq 1
          end
        end
      end

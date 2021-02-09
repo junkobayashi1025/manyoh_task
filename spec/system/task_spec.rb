@@ -14,7 +14,15 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(page).to have_content 'task'
         end
       end
-
+      context 'ステータス検索をした場合' do
+        it "ステータスに完全一致するタスクが絞り込まれる" do
+          visit tasks_path
+          select 'New', from: 'status'
+          click_on 'Search'
+          sleep(1)
+          expect(page).to have_content 'New'
+        end
+      end
       context 'タイトルのあいまい検索とステータス検索をした場合' do
         it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
           visit tasks_path
@@ -26,15 +34,6 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(page).to have_content 'New'
         end
       end
-      context 'ステータス検索をした場合' do
-        it "ステータスに完全一致するタスクが絞り込まれる" do
-          visit tasks_path
-          select 'New', from: 'status'
-          click_on 'Search'
-          sleep(1)
-          expect(page).to have_content 'New'
-        end
-      end　
     end
   end
   describe '新規作成機能' do
