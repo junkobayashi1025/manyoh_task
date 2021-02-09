@@ -10,7 +10,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "検索キーワードを含むタスクで絞りこまれる" do
           visit tasks_path
           fill_in 'title', with: 'ta'
-          click_on 'Search'
+          click_on '検索'
           expect(page).to have_content 'task'
         end
       end
@@ -18,7 +18,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "ステータスに完全一致するタスクが絞り込まれる" do
           visit tasks_path
           select 'New', from: 'status'
-          click_on 'Search'
+          click_on '検索'
           sleep(1)
           expect(page).to have_content 'New'
         end
@@ -28,7 +28,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           visit tasks_path
           fill_in 'title', with: 'ta'
           select 'New', from: 'status'
-          click_on 'Search'
+          click_on '検索'
           sleep(1)
           expect(page).to have_content 'task'
           expect(page).to have_content 'New'
@@ -40,14 +40,19 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
       visit new_task_path
-      fill_in 'task[title]', with:'テスト'
-      fill_in 'task[content]', with:'content'
-      fill_in 'task[deadline]', with: Time.current + 7.days
-      select 'New', from: 'task[status]'
-      click_on 'save'
+      task = Task.new(title: "test", content: "content", deadline: Time.current + 7.days, status: 'New', priority: 'low')
+      fill_in 'task[title]', with: task.title
+      fill_in 'task[content]', with: task.content
+      fill_in 'task[deadline]', with: task.deadline
+      select task.status, from: 'task[status]'
+      select task.priority, from: 'task[priority]'
+      click_on 'task_form_submit'
       sleep(1)
-      expect(page).to have_content 'テスト'
-      expect(page).to have_content 'New'
+      result = Task.last
+      expect(find_by_id("tasks-index__task-#{result.id}-title")).to have_content task.title
+      expect(find_by_id("tasks-index__task-#{result.id}-content")).to have_content task.content
+      expect(find_by_id("tasks-index__task-#{result.id}-status")).to have_content task.status
+      expect(find_by_id("tasks-index__task-#{result.id}-priority")).to have_content task.priority
       end
     end
   end

@@ -11,10 +11,15 @@
 
   <body>
     <div class="container">
-    <% if flash.notice.present? %>
-    <div class="alert alert-success">
-    <%= flash.notice%>
-    <% end %>
+      <% if flash[:notice] %>
+        <p class="alert alert-primary"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:success] %>
+        <p class="alert alert-success"><%= flash[:success] %></p>
+      <% end %>
+      <% if flash[:danger] %>
+        <p class="alert alert-danger"><%= flash[:danger] %></p>
+      <% end %>
     <%= yield %>
     </div>
   </body>

@@ -8,27 +8,27 @@
     </ul>
   </div>
 <% end %>
-<%= link_to 'index', tasks_path, class: 'btn btn-primary'%>
+<%= link_to 'タスク一覧', tasks_path, class: 'btn btn-primary'%>
 <%= form_with(model: task, local: true) do |f| %>
   <div class="form-group">
-    <%= f.label :title %>
+    <%= f.label :タスク名 %>
     <%= f.text_field :title, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :content %>
+    <%= f.label :詳しい内容 %>
     <%= f.text_area :content, class: 'form-control'%>
   </div>
   <div class="form-group">
-    <%= f.label :deadline %>
+    <%= f.label :終了期限 %>
     <%= f.datetime_field :deadline, class: 'form-control' %>
   </div>
   <div class="form-group">
-     <%= f.label :status %>
-     <%= f.select :status, Task.statuses.keys, class: "form-control" %>
+     <%= f.label :ステータス %>
+     <%= f.select :status, Task.statuses.keys, include_blank: '選択してください', class: "form-control" %>
   </div>
   <div class="form-group">
-     <%= f.label :priority %>
-     <%= f.select :priority, Task.priorities.keys, class: "form-control" %>
+     <%= f.label :優先度 %>
+     <%= f.select :priority, Task.priorities.keys, include_blank: '選択してください', class: "form-control" %>
   </div>
-  <%= f.submit 'save', value:'save', class: 'btn btn-primary' %>
+  <%= f.submit '登録', value:'登録', class: 'btn btn-primary', id: 'task_form_submit' %>
 <% end %>
