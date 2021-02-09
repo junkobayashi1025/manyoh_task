@@ -3,10 +3,10 @@
 
 <ul>
     <%= form_with(url: tasks_path, method: :get, local: true) do |f|%>
-    <%= f.label :title, 'タイトル' %>
-    <%= f.text_field :title, placeholder:"タイトル検索"%>
-    <%= f.label :status, '進捗'%>
-    <%= f.select :status, ["New","WIP","Done","Pending"], include_blank: true %>
+    <%= f.label :title, 'タスク名' %>
+    <%= f.text_field :title, placeholder:"検索.."%>
+    <%= f.label :status, 'ステータス'%>
+    <%= f.select :status, Task.statuses.keys, include_blank: true %>
     <%= f.submit 'Search' %>
     <%= link_to 'Clear', tasks_path %>
     <% end %>
@@ -19,9 +19,9 @@
       <th>id</th>
       <th>title</th>
       <th>content</th>
-      <th><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %></th>
+      <th><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
       <th>status</th>
-      <th>priority</th>
+      <th><%= link_to "優先度", tasks_path(sort_priority: "true") %></th>
       <th>create_date</th>
       <th></th>
       <th></th>
