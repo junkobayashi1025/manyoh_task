@@ -1,0 +1,12 @@
+<div class="d-flex align-items-center">
+  <h1>ログイン</h1>
+</div>
+
+<div class="col-md-4">
+  <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.email_field :email, placeholder:"メールアドレス", class: 'form-control' %><br>
+      <%= f.password_field :password, placeholder:"パスワード", class: 'form-control' %>
+    </div>
+  <%= f.submit 'ログイン', value:'ログイン', class: 'btn btn-primary', id: '@session_form_submit' %>
+<% end %>
