@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user
+  
+
   def index
     if params[:sort_expired] || params[:sort_priority]
       if params[:sort_expired]
