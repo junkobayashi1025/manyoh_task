@@ -14,3 +14,7 @@
  *= require_self
  *= require bootstrap/dist/css/bootstrap.min
  */
+
+.alert {
+  margin-top: 20px;
+}

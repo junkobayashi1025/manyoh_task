@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user
-  
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
 
   def index
     if params[:sort_expired] || params[:sort_priority]
@@ -23,7 +24,6 @@ class TasksController < ApplicationController
    end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:notice] = "タスク「#{@task.title}」を登録しました"
       redirect_to tasks_path
@@ -41,24 +41,25 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    task = Task.find(params[:id])
-    task.update(task_params)
-    flash[:success] = "タスク「#{task.title}」を更新しました"
+    @task.update(task_params)
+    flash[:success] = "タスク「#{@task.title}」を更新しました"
     redirect_to tasks_path
   end
 
   def destroy
-    task = Task.find(params[:id])
-    task.destroy
-    flash[:danger] = "タスク「#{task.title}」を削除しました"
+    @task.destroy
+    flash[:danger] = "タスク「#{@task.title}」を削除しました"
     redirect_to tasks_path
   end
 
   private
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
   def task_params
     params.require(:task).permit(:title, :content, :deadline, :status, :priority)
   end

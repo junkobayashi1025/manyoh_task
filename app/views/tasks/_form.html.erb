@@ -8,7 +8,7 @@
     </ul>
   </div>
 <% end %>
-<%= link_to 'タスク一覧', tasks_path, class: 'btn btn-primary'%>
+
 <%= form_with(model: task, local: true) do |f| %>
   <div class="form-group">
     <%= f.label :タスク名 %>
