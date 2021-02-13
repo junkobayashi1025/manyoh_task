@@ -1,0 +1,25 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation" class="alert-danger">
+    <h2><%= @user.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="col-md-4">
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder:"名前", class: 'form-control' %><br>
+    <%= f.email_field :email, placeholder:"メールアドレス", class: 'form-control' %><br>
+    <%= f.password_field :password, placeholder:"パスワード", class: 'form-control' %><br>
+    <%= f.password_field :password_confirmation, placeholder:"パスワード確認", class: 'form-control' %><br>
+    <%= f.hidden_field :admin, value: false %>
+    <%= f.check_box :admin, {}, true, false %>
+    <%= f.label :admin, "管理者権限" %><br>
+  </div>
+  <%= f.submit '登録', class: 'btn btn-primary', id: '@admin_user_form_submit' %>
+</div>
+
+<% end %>

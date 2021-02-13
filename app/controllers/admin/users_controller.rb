@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :user_admin?
 
   def index
@@ -20,6 +20,9 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def edit
   end
 
@@ -28,14 +31,18 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_user_url(@user)
       flash[:success] = "ユーザー「#{@user.name}」を更新しました"
     else
-      render :edit
+    flash[:notice] = "少なくとも1人、管理権限をもつユーザーが必要の為、更新できません。"
+    redirect_to admin_users_path
     end
   end
 
   def destroy
     if @user.destroy
-    redirect_to admin_user_url
+    redirect_to admin_users_url
     flash[:danger] = "ユーザー「#{@user.name}」を削除しました"
+    else
+    flash[:notice] = "少なくとも1人、管理権限をもつユーザーが必要の為、削除できません。"
+    redirect_to admin_users_path
     end
   end
 
