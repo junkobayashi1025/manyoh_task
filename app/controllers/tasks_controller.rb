@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_action :authenticate_user
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-
   def index
     if params[:sort_expired] || params[:sort_priority]
       if params[:sort_expired]
@@ -57,7 +56,11 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    if current_user.admin?
+      @task = Task.find(params[:id])
+    else
+      @task = current_user.tasks.find(params[:id])
+    end
   end
 
   def task_params

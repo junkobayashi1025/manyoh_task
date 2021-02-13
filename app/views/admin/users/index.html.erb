@@ -22,10 +22,10 @@
      <tr>
        <td id=<%= "users-index__user-#{user.id}-name" %> ><%= user.name %></td>
        <td id=<%= "users-index__user-#{user.id}-email" %> ><%= user.email %></td>
-       <td></td>
+       <td id=<%= "users-index__user-#{user.id}-task-count" %> ><%= user.tasks.count %></td>
        <td id=<%= "users-index__user-#{user.id}-admin" %> ><%= user.admin? ? 'あり' : 'なし' %></td>
        <td id=<%= "users-index__user-#{user.id}-created_at" %> ><%= user.created_at.strftime("%Y年 %m月 %d日 %H:%M:%S") %></td>
-       <td><%= link_to '詳細', user_path(user), class: 'btn btn-primary mr-3'%></td>
+       <td><%= link_to '詳細', admin_user_path(user), class: 'btn btn-primary mr-3'%></td>
        <td><%= link_to '編集', edit_admin_user_path(user), class: 'btn btn-success mr-3'%></td>
        <td><%= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: "タスク「#{user.name}を削除します。よろしいでしょうか？」" }, class: 'btn btn-danger mr-3'%></td>
      </tr>
