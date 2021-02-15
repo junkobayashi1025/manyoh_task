@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
   before_action :current_user?, only: [:show]
   def new
+    if current_user.present?
+    flash[:notice] = "閲覧権限がありません"
+    redirect_to tasks_path
+    else
     @user = User.new
+    end
   end
 
   def create
