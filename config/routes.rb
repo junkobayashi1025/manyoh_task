@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  root 'tasks#index'
+  root 'sessions#new'
   resources :tasks
   resources :users, only: [:new, :create, :show]
   resources :sessions, only: [:new, :create, :destroy]
