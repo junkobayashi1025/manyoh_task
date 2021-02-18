@@ -4,10 +4,9 @@
   <%= link_to '新規登録', new_task_path, class: 'btn btn-primary'%>
 <ul>
     <%= form_with(url: tasks_path, method: :get, local: true) do |f|%>
-    <%= f.label :title, 'タスク名' %>
-    <%= f.text_field :title, placeholder:"検索.."%>
-    <%= f.label :status, 'ステータス'%>
-    <%= f.select :status, Task.statuses.keys, include_blank: true %>
+    <%= f.text_field :title, placeholder:"タスク名.."%>
+    <%= f.select :status, Task.statuses.keys, include_blank:"ステータス" %>
+    <%= f.select :label_id, Label.all.collect { |p| [ p.name, p.id ] }, include_blank:"ラベル" %>
     <%= f.submit '検索' %>
     <%= link_to 'クリア', tasks_path %>
     <% end %>
@@ -24,6 +23,7 @@
       <th>ステータス</th>
       <th><%= link_to "優先度", tasks_path(sort_priority: "true") %></th>
       <th>作成者</th>
+      <th>ラベル</th>
       <th></th>
       <th></th>
       <th></th>
@@ -39,6 +39,10 @@
        <td id=<%= "tasks-index__task-#{task.id}-status" %> ><%= task.status %></td>
        <td id=<%= "tasks-index__task-#{task.id}-priority" %> ><%= task.priority %></td>
        <td id=<%= "tasks-index__task-#{task.id}-user_name" %> ><%= task.user.name %></td>
+       <td id=<%= "tasks-index__task-#{task.id}-task_label" %> ><% task.labels.each do |label| %>
+         <%= label.name %>
+       <% end %>
+       </td>
        <td><%= link_to '詳細', task_path(task), class: 'btn btn-primary mr-3'%></td>
        <td><%= link_to '編集', edit_task_path(task), class: 'btn btn-success mr-3'%></td>
        <td><%= link_to '削除', task, method: :delete, data: { confirm: "タスク「#{task.title}を削除します。よろしいでしょうか？」" }, class: 'btn btn-danger mr-3'%></td>
