@@ -30,5 +30,9 @@
      <%= f.label :優先度 %>
      <%= f.select :priority, Task.priorities.keys, include_blank: '選択してください', class: "form-control" %>
   </div>
+  <div class="field">
+     <%= f.label :ラベル %>
+     <%= f.collection_check_boxes(:label_ids, Label.all, :id, :name, include_hidden: false ) %>
+  </div>
   <%= f.submit '登録', value:'登録', class: 'btn btn-primary', id: 'task_form_submit' %>
 <% end %>
