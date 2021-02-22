@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task  do
+  factory :task, class: Task  do
     id {1}
     title { 'task' }
     content { 'content' }

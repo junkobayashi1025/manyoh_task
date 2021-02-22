@@ -1,8 +1,13 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:new_task)
+    admin_user = FactoryBot.create(:admin_user)
+    visit new_session_path
+    fill_in 'session[email]', with: admin_user.email
+    fill_in 'session[password]', with: admin_user.password
+    click_on 'session_form_submit'
+    FactoryBot.create(:task, user: admin_user)
+    FactoryBot.create(:new_task, user: admin_user)
   end
   describe 'タスク管理機能', type: :system do
     describe '検索機能' do

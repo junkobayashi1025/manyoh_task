@@ -23,6 +23,13 @@
       <th>優先度</th>
       <td id=<%= "tasks-show__task-#{@task.id}-priority" %> ><%= @task.priority %></td>
     </tr>
+    <tr>
+      <th>ラベル</th>
+      <td id=<%= "tasks-show__task-#{@task.id}-task_label" %> ><% @task.labels.each do |label| %>
+        <%= label.name %>
+      <% end %>
+      </td>
+    </tr>
   </tbody>
  </table>
  <td><%= link_to '編集', edit_task_path, class: 'btn btn-success'%></td>
